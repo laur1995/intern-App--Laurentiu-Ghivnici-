@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { currentEnvironment } from '@constants';
+import { currentEnvironment } from "@constants";
 
-import styles from './users.module.scss';
+import styles from "./users.module.scss";
 
-type Gender = 'female' | 'male' | '';
+type Gender = "female" | "male" | "";
 
 type User = {
   gender: Gender;
@@ -19,60 +19,75 @@ type User = {
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [gender, setGender] = useState<Gender>('');
+  const [gender, setGender] = useState<Gender>("");
   const [pageToGet, setPageToGet] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const getUsers = async (page: number) => {
-    const result = await fetch(
-      `${currentEnvironment.api.baseUrl}?results=5&gender=female&page=${String(page)}`,
-    );
-    const usersResults = (await result.json()) as User[];
+  const getUsers = async (page: number, selectedGender: Gender) => {
+    setLoading(true);
+    try {
+      const result = await fetch(
+        `${currentEnvironment.api.baseUrl}?results=5&gender=${selectedGender}&page=${String(page)}`
+      );
+      const data = await result.json();
 
-    setUsers((oldUsers) => (page === 1 ? usersResults : [...oldUsers, ...usersResults]));
+      if (result.ok) {
+        if (page === 1) {
+          setUsers(data.results);
+        } else {
+          setUsers((oldUsers) => [...oldUsers, ...data.results]);
+        }
+        setError(null);
+      } else {
+        setError("Failed to fetch users");
+      }
+    } catch {
+      setError("Failed to fetch users");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    void (async () => {
-      await getUsers(pageToGet);
-    })();
-  }, []);
+    setPageToGet(1);
+  }, [gender]);
+
+  useEffect(() => {
+    void getUsers(pageToGet, gender);
+  }, [pageToGet, gender]);
 
   return (
-    <div>
-      <div style={{ backgroundColor: 'grey' }}>
-        Users
+    <div className={styles.container}>
+      <div className={styles.filterContainer}>
+        <label htmlFor="gender">Gender: </label>
         <select
+          className={styles.select}
           id="gender"
           name="gender"
-          onChange={(event) => {
-            setGender(event.target.value as Gender);
-          }}
+          onChange={(event) => setGender(event.target.value as Gender)}
         >
           <option value="">All</option>
           <option value="female">Female</option>
           <option value="male">Male</option>
         </select>
       </div>
-      <ul>
-        {users.length > 0
-          ? users.map((user: User) => (
-            <li key={user.login.uuid}>
-              {user.name.first}
-              {' '}
-              {user.name.last}
-              {' '}
-              {user.gender}
-              {' '}
+
+      {loading ? <div className={styles.loading}>Loading...</div> : null}
+      {error ? <div className={styles.error}>{error}</div> : null}
+
+      <ul className={styles.userList}>
+        {users.length > 0 &&
+          users.map((user: User) => (
+            <li key={user.login.uuid} className={styles.userCard}>
+              {user.name.first} {user.name.last} ({user.gender})
             </li>
-          ))
-          : null}
+          ))}
       </ul>
       <button
         className={styles.loadButton}
         type="button"
-        onClick={() => {
-          setPageToGet((v) => v + 1);
-        }}
+        onClick={() => setPageToGet(pageToGet + 1)}
       >
         Load More
       </button>

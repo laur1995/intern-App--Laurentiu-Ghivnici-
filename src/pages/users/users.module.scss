@@ -1,21 +1,68 @@
-.loadButlon {
-    width: 200px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: rgb(66, 66, 66);
-    border-radius: 5px;
-    color: white;
-    border: none;
-    position: relative;
-    cursor: pointer;
-    transition-duration: .2s;
-    flex-direction: row;
-  }
-  
-  .loadButlon:hover {
-    background-color: rgb(77, 77, 77);
-    transition-duration: .2s;
-    justify-content: center;
-  }
+.container {
+  padding: 20px;
+}
+
+.container.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
+.filterContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.select {
+  margin-left: 10px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.loading,
+.error {
+  margin-bottom: 20px;
+  color: red;
+}
+
+.userList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.userCard {
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.userCard.dark-mode {
+  background-color: #555;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-color: #444;
+}
+
+.loadButton {
+  width: 200px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(66, 66, 66);
+  border-radius: 5px;
+  color: white;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  flex-direction: row;
+}
+
+.loadButton:hover {
+  background-color: rgb(77, 77, 77);
+  transition-duration: 0.1s;
+  justify-content: center;
+}

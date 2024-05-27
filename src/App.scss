@@ -1,21 +1,424 @@
-@import "./styles/index.scss";
+@import './styles/index.scss';
 
-.header {
-  background-color: #a4c991;
+.layout-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.layout-container.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
+.header,
+.footer {
+  background-color: #1a1a1a;
   padding: 10px 20px;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
- 
+
+  @include for-extra-small-phones {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  @include for-small-phones {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  @include for-medium-phones {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @include for-tablet-portrait-up {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @include for-tablet-landscape-up {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @include for-desktop-up {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @include for-big-desktop-up {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
-.layout-container {
-  min-height: 100vh;
+.header.dark-mode,
+.footer.dark-mode {
+  background-color: #000;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+
+  @include for-extra-small-phones {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  @include for-small-phones {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  @include for-medium-phones {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+  }
+
+  @include for-tablet-portrait-up {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+  }
+
+  @include for-tablet-landscape-up {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+  }
+
+  @include for-desktop-up {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+  }
+
+  @include for-big-desktop-up {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+  }
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-right: 10px;
+
+  @include for-extra-small-phones {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  @include for-small-phones {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  @include for-medium-phones {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  @include for-tablet-portrait-up {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  @include for-tablet-landscape-up {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  @include for-desktop-up {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  @include for-big-desktop-up {
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+
+nav a {
+  display: flex;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  @include for-extra-small-phones {
+    width: 100%;
+    text-align: center;
+  }
+
+  @include for-small-phones {
+    width: 100%;
+    text-align: center;
+  }
+
+  @include for-medium-phones {
+    width: auto;
+    text-align: left;
+  }
+
+  @include for-tablet-portrait-up {
+    width: auto;
+    text-align: left;
+  }
+
+  @include for-tablet-landscape-up {
+    width: auto;
+    text-align: left;
+  }
+
+  @include for-desktop-up {
+    width: auto;
+    text-align: left;
+  }
+
+  @include for-big-desktop-up {
+    width: auto;
+    text-align: left;
+  }
+}
+
+nav a:hover {
+  background-color: #575757;
+}
+
+nav a.active {
+  background-color: #007bff;
+  color: white;
+}
+
+nav a.dark-mode {
+  color: lightgray;
+}
+
+nav a.active.dark-mode {
+  background-color: #0056b3;
+}
+
+.toggle-dark-mode-button {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 30px;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  @include for-extra-small-phones {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  @include for-small-phones {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  @include for-medium-phones {
+    width: auto;
+    margin-top: 0;
+  }
+
+  @include for-tablet-portrait-up {
+    width: auto;
+    margin-top: 0;
+  }
+
+  @include for-tablet-landscape-up {
+    width: auto;
+    margin-top: 0;
+  }
+
+  @include for-desktop-up {
+    width: auto;
+    margin-top: 0;
+  }
+
+  @include for-big-desktop-up {
+    width: auto;
+    margin-top: 0;
+  }
+}
+
+.toggle-dark-mode-button:hover {
+  background-color: #feb47b;
+  transform: scale(1.05);
+}
+
+.toggle-dark-mode-button:active {
+  transform: scale(0.95);
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+
+  @include for-extra-small-phones {
+    font-size: 12px;
+  }
+
+  @include for-small-phones {
+    font-size: 12px;
+  }
+
+  @include for-medium-phones {
+    font-size: 14px;
+  }
+
+  @include for-tablet-portrait-up {
+    font-size: 14px;
+  }
+
+  @include for-tablet-landscape-up {
+    font-size: 14px;
+  }
+
+  @include for-desktop-up {
+    font-size: 16px;
+  }
+
+  @include for-big-desktop-up {
+    font-size: 16px;
+  }
+}
+
+.footer a {
+  color: #007bff;
+  text-decoration: none;
+
+  @include for-extra-small-phones {
+    display: block;
+    margin-top: 5px;
+  }
+
+  @include for-small-phones {
+    display: block;
+    margin-top: 5px;
+  }
+
+  @include for-medium-phones {
+    display: inline;
+    margin-top: 0;
+  }
+
+  @include for-tablet-portrait-up {
+    display: inline;
+    margin-top: 0;
+  }
+
+  @include for-tablet-landscape-up {
+    display: inline;
+    margin-top: 0;
+  }
+
+  @include for-desktop-up {
+    display: inline;
+    margin-top: 0;
+  }
+
+  @include for-big-desktop-up {
+    display: inline;
+    margin-top: 0;
+  }
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.input,
+.textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include for-extra-small-phones {
+    margin-bottom: 10px;
+  }
+
+  @include for-small-phones {
+    margin-bottom: 10px;
+  }
+
+  @include for-medium-phones {
+    margin-bottom: 15px;
+  }
+
+  @include for-tablet-portrait-up {
+    margin-bottom: 15px;
+  }
+
+  @include for-tablet-landscape-up {
+    margin-bottom: 15px;
+  }
+
+  @include for-desktop-up {
+    margin-bottom: 20px;
+  }
+
+  @include for-big-desktop-up {
+    margin-bottom: 20px;
+  }
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 .logo {
-  @include for-phone-only {
-    width: 50px;
+  @include for-extra-small-phones {
+    width: 80px;
+  }
+
+  @include for-small-phones {
+    width: 80px;
+  }
+
+  @include for-medium-phones {
+    width: 100px;
+  }
+
+  @include for-tablet-portrait-up {
+    width: 100px;
+  }
+
+  @include for-tablet-landscape-up {
+    width: 120px;
+  }
+
+  @include for-desktop-up {
+    width: 140px;
+  }
+
+  @include for-big-desktop-up {
+    width: 160px;
   }
 }
